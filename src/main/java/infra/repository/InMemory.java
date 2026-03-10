@@ -11,20 +11,24 @@ public class InMemory implements IRepository {
     private final List<IEvent> events = new CopyOnWriteArrayList<>();
 
     public void add(IEvent event) {
+        event.id(events.size()+1);
         this.events.add(event);
     }
 
     public boolean remove(int id) {
-        return this.events.removeIf(e -> e.GetID() == id);
+        return this.events.removeIf(e -> e.id().equals(id));
     }
 
+    public  List<IEvent> events(){
+        return this.events;
+    }
     public void clear() {
         this.events.clear();
     }
 
     public Optional<IEvent> searchById(int id) {
         return this.events.stream()
-                .filter(e -> e.GetID() == id)
+                .filter(e -> e.id().equals(id))
                 .findFirst();
     }
 
@@ -32,8 +36,12 @@ public class InMemory implements IRepository {
         if (query == null) return List.of();
 
         return events.stream()
-                .filter(e -> query.equalsIgnoreCase(e.GetLabel()))
-                .sorted(Comparator.comparing(IEvent::GetLabel))
+                .filter(e -> 
+                    query.equalsIgnoreCase(e.srcIp()) || 
+                    query.equalsIgnoreCase(e.dstIp()) ||
+                    query.equalsIgnoreCase(e.subject()) ||
+                    query.equalsIgnoreCase(e.message())
+                )
                 .toList(); 
     }
 }
