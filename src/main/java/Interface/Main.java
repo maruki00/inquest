@@ -11,7 +11,7 @@ public class Main {
                 //InputStream is = Main.class.getClassLoader().getResourceAsStream("access.log");
                 srv.Parse("/home/user/dev/lab/src/main/java/Interface/access.log");
                 for(var x : rep.events()){
-                        System.out.printf("event: %s\n", x.srcIp());
+                        System.out.printf("event: %s\n", x.toString());
                 }
         }
 }
