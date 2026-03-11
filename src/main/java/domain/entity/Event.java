@@ -24,17 +24,17 @@ public class Event implements IEvent {
             Severity severity, String actor, String subject, String srcIp, String dstIp,
             Integer status, String message, Map<String, String> attrs) {
         this.id = id;
-        this.timestamp = timestamp;
-        this.dataset = dataset;
-        this.type = type;
-        this.severity = severity;
-        this.actor = actor;
-        this.subject = subject;
-        this.srcIp = srcIp;
-        this.dstIp = dstIp;
-        this.status = status;
-        this.message = message;
-        this.attrs = attrs;
+        this.timestamp = timestamp;  // ccreated at
+        this.dataset = dataset;      // source of the log like http-accces, auth-log, kernel-log : source /var/logs
+        this.type = type;            // 
+        this.severity = severity;    // 
+        this.actor = actor;          // who admin, root, nobody, anon ....
+        this.subject = subject;      // 
+        this.srcIp = srcIp;          // source ip
+        this.dstIp = dstIp;          // distination ip
+        this.status = status;        // 
+        this.message = message;      // in http log = http method
+        this.attrs = attrs;          // extra attribs
     }
 
     public void id(Integer id){
