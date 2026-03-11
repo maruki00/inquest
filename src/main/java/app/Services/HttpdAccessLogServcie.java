@@ -86,7 +86,9 @@ public class HttpdAccessLogServcie implements ParserService {
     }
 
     public void Analyse(Itemplete templete) {
-        templete.scan(HttpdAccessLogServcie.repository.datasource());
+        System.out.println(templete.scan(HttpdAccessLogServcie.repository.datasource()));
     }
 
 }
+
+
