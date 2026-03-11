@@ -35,10 +35,8 @@ public class HttpdAccessLogServcie implements ParserService {
             "^(\\S+) (\\S+) (\\S+) \\[(.*?)\\] \"(\\S+) (\\S+) (\\S+)\" (\\d{3}) (\\d+|-)"
     // "^(\\d{1,3}(?:\\.\\d{1,3}){3})\\s-\\s-\\s\\[([^\\]]+)\\]\\s\"([A-Z]+)\\s([^\\s\"]+)\\sHTTP/\\d\\.\\d\"\\s(\\d{3})\\s(\\d+|-)$"
     );
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z",
-            Locale.ENGLISH);
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z",Locale.ENGLISH);
 
-    
     public static IEvent parseLine(String line) {
         var matcher = APACHE_ACCESS_LOG_LINE_PATTERN.matcher(line);
         if (!matcher.find())
