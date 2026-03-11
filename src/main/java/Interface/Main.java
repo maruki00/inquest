@@ -5,6 +5,7 @@ import java.util.List;
 
 import app.Services.HttpdAccessLogServcie;
 import infra.repository.InMemory;
+import infra.templates.Basic;
 import infra.templates.DDoS;
 import infra.templates.Injection;
 
@@ -12,15 +13,16 @@ public class Main {
         public static void main(String[] args) {
                 var rep = new InMemory();
                 var srv = new HttpdAccessLogServcie(rep);
-                srv.Parse("/home/user/dev/lab/src/main/java/Interface/access.log");
+                srv.Parse("/home/user/dev/lab/target/classes/access.log"); //ClassLoader.getSystemResource("access.log").toString());
                 var templates =  List.of(
+                        new Basic(),
                         new DDoS(),
                         new Injection()
                 );
                 for (var obj : templates){
                         srv.Analyse(obj);
                 }
-             //  srv.Analyse(new Injection());
+                System.out.println(ClassLoader.getSystemResource("access.log"));
         }
 }
 
