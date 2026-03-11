@@ -9,4 +9,6 @@ public void add(IEvent event) ;
     public void clear() ;
     public Optional<IEvent> searchById(int id) ;
     public List<IEvent> searchByStr(String query);
+    public List<IEvent> datasource();
+
 } 
