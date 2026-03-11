@@ -46,7 +46,7 @@ public class Basic implements Itemplete{
                                   stream().
                                   max(Map.Entry.comparingByValue());
 
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder("\033[0;34m");
         builder.append("\n   ========[ Basic Template ]==========\n");
         builder.append("----------------------------------------------\n");
         if(mostFrequentIP.isPresent()){
@@ -75,9 +75,7 @@ public class Basic implements Itemplete{
                                         )
             );
         }
-
-
-        //builder.append(String.format("Potential Injecation : %-15s ", suspIps.get()));
+        builder.append("\033[0m");
         return builder.toString();
     }
 }
