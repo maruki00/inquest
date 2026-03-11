@@ -13,7 +13,7 @@ public class Main {
         public static void main(String[] args) {
                 var rep = new InMemory();
                 var srv = new HttpdAccessLogServcie(rep);
-                srv.Parse("/home/user/dev/lab/target/classes/access.log"); //ClassLoader.getSystemResource("access.log").toString());
+                srv.Parse(ClassLoader.getSystemResource("access.log").getPath());
                 var templates =  List.of(
                         new Basic(),
                         new DDoS(),
@@ -22,7 +22,6 @@ public class Main {
                 for (var obj : templates){
                         srv.Analyse(obj);
                 }
-                System.out.println(ClassLoader.getSystemResource("access.log"));
         }
 }
 
