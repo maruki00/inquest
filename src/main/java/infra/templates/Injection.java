@@ -48,7 +48,7 @@ public class Injection implements Itemplete{
                                   filter(e -> Injection.Contains(e.subject())).
                                   collect(Collectors.toList());
 
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder("\033[33m");
         builder.append("\n   ========[ INJECTION Template ]==========\n");
         builder.append("----------------------------------------------\n");
         if (suspIps.isEmpty()) {
@@ -58,6 +58,7 @@ public class Injection implements Itemplete{
                 builder.append(String.format("Potential Injecation : %-15s ", x.srcIp()));
             }
         }
+        builder.append("\033[0m");
         return builder.toString();
     }
    
