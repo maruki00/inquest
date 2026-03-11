@@ -17,6 +17,7 @@ import app.Enums.EventType;
 import app.Enums.Severity;
 import domain.contract.IEvent;
 import domain.contract.IRepository;
+import domain.contract.Itemplete;
 import domain.contract.ParserService;
 import domain.entity.Event;
 
@@ -82,6 +83,10 @@ public class HttpdAccessLogServcie implements ParserService {
         }
 
         return null;
+    }
+
+    public void Analyse(Itemplete templete) {
+        templete.scan(HttpdAccessLogServcie.repository.datasource());
     }
 
 }
