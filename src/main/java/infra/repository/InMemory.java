@@ -19,9 +19,10 @@ public class InMemory implements IRepository {
         return this.events.removeIf(e -> e.id().equals(id));
     }
 
-    public  List<IEvent> events(){
+    public  List<IEvent> datasource(){
         return this.events;
     }
+
     public void clear() {
         this.events.clear();
     }
