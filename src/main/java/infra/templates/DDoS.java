@@ -16,7 +16,7 @@ public class DDoS implements Itemplete {
                                   filter(e -> e.getValue() > MAX_ALLOWED_REQUESTS).
                                   collect(Collectors.toList());
 
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder("\033[31m");
         builder.append("   ========[ DDOS Template ]============\n");
         builder.append("------------------------------------------\n");
         if (suspIps.isEmpty()) {
@@ -26,6 +26,7 @@ public class DDoS implements Itemplete {
                 builder.append(String.format("Potential DDoS : %-15s | Times : %-5d%n", x.getKey(), x.getValue()));
             }
         }
+        builder.append("\033[0m");
         return builder.toString();
     }
 }
