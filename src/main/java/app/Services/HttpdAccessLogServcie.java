@@ -30,8 +30,7 @@ public class HttpdAccessLogServcie implements ParserService {
         HttpdAccessLogServcie.repository = re;
     }
 
-    // 10.223.157.186 - - [15/Jul/2009:15:50:36 -0700] "GET
-    // /assets/img/dummy/secondary-news-3.jpg HTTP/1.1" 200 5604
+    // 10.223.157.186 - - [15/Jul/2009:15:50:36 -0700] "GET /assets/img/dummy/secondary-news-3.jpg HTTP/1.1" 200 5604
     private static final Pattern APACHE_ACCESS_LOG_LINE_PATTERN = Pattern.compile(
             "^(\\S+) (\\S+) (\\S+) \\[(.*?)\\] \"(\\S+) (\\S+) (\\S+)\" (\\d{3}) (\\d+|-)"
     // "^(\\d{1,3}(?:\\.\\d{1,3}){3})\\s-\\s-\\s\\[([^\\]]+)\\]\\s\"([A-Z]+)\\s([^\\s\"]+)\\sHTTP/\\d\\.\\d\"\\s(\\d{3})\\s(\\d+|-)$"
@@ -48,7 +47,7 @@ public class HttpdAccessLogServcie implements ParserService {
         return new Event(
                 Integer.valueOf(0),
                 ts,
-                Dataset.ApacheAccess.toString(),// "apache-access",
+                Dataset.ApacheAccess.toString(), // "apache-access",
                 EventType.REQUEST,
                 Severity.LOW,
                 actor,
