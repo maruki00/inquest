@@ -1,27 +1,26 @@
 package infra.templates;
 
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
+
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import domain.contract.IEvent;
 import domain.contract.Itemplete;
+import io.github.cdimascio.dotenv.Dotenv;
+
 /**
  done:* Line 1: From which IP do requests occur most frequently? (Identify which other property occurs most frequently and least frequently in your specific log format).
  done:* Line 2: Which HTTP method is called most often? (Which command or set of commands appears most frequently in the logs?)
  done:* Line 3: Which URI is requested most frequently?
  done* Line 4: On which day were there the most requests?
  done* Line 5: What time period do the logs cover?
- * Line 6: Suspicious requests (multiple identical requests in a row, multiple requests that received an error status code, etc.—feel free to use your imagination here).
+ done* Line 6: Suspicious requests (multiple identical requests in a row, multiple requests that received an error status code, etc.—feel free to use your imagination here).
  * Line 7: Track any number of events of the same type/code from a single key within a short time window.
 */
+
 public class Basic implements Itemplete{
     
-    public String scan(List<IEvent> events) {
+    public String scan(List<IEvent> events, Dotenv env) {
         var mostFrequentIP = events.stream().
                                   collect(Collectors.groupingBy(IEvent::srcIp, Collectors.counting())).
                                   entrySet().
@@ -76,7 +75,7 @@ public class Basic implements Itemplete{
                                             mostFrequentRequestsInADay.get().getValue())
             );
         }
-        
+
         builder.append("\033[0m");
         return builder.toString();
     }
