@@ -49,13 +49,13 @@ public class Injection implements Itemplete{
                                   collect(Collectors.toList());
 
         StringBuilder builder = new StringBuilder("\033[33m");
-        builder.append("\n   ========[ INJECTION Template ]==========\n");
+        builder.append("\n   ========[ Injection Template ]==========\n");
         builder.append("----------------------------------------------\n");
         if (suspIps.isEmpty()) {
-            builder.append("injection not detected");
+            builder.append("No suspicious activity detected.\n");
         }else{
             for (var x : suspIps){
-                builder.append(String.format("Potential Injecation : %-15s ", x.srcIp()));
+                builder.append(String.format("Potential Injecation : %-15s \n", x.srcIp()));
             }
         }
         builder.append("\033[0m");
