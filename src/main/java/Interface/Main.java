@@ -12,7 +12,7 @@ import infra.templates.Injection;
 import io.github.cdimascio.dotenv.Dotenv;
 public class Main {
         public static void main(String[] args) {
-                Dotenv dotenv = Dotenv.load();
+                Dotenv env = Dotenv.load();
                 var rep = new InMemory();
                 var srv = new HttpdAccessLogServcie(rep);
                 srv.Parse(ClassLoader.getSystemResource("access.log").getPath());
@@ -23,8 +23,7 @@ public class Main {
                         new DDoS()
                 );
                 for (var obj : templates){
-                        srv.Analyse(obj);
+                        srv.Analyse(obj, env);
                 }
         }
 }
-
