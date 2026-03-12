@@ -1,0 +1,4 @@
+./target
+.vscode
+resources/.env
+resources/access.log
