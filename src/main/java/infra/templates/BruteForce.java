@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import app.Enums.HttpStatus;
 import domain.contract.IEvent;
 import domain.contract.Itemplete;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class BruteForce implements Itemplete{
 
-    private static Integer Max_Bruteforce_Requests = 0;
     private static boolean IN(Integer status){
         return  status == HttpStatus.BAD_REQUEST.getCode() || 
                 status == HttpStatus.NOT_FOUND.getCode() ||
@@ -17,14 +17,14 @@ public class BruteForce implements Itemplete{
                 status == HttpStatus.NOT_IMPLEMENTED.getCode() ||
                 status == HttpStatus.INTERNAL_SERVER_ERROR.getCode() ;
     }
-    public String scan(List<IEvent> events) {
+    public String scan(List<IEvent> events, Dotenv env) {
         var suspIps = events.
                         stream().
                         filter(e -> BruteForce.IN(e.status())).
                         collect(Collectors.groupingBy(IEvent::srcIp, Collectors.counting())).
                         entrySet().
                         stream().
-                        filter(e -> e.getValue() >= Max_Bruteforce_Requests).
+                        filter(e -> e.getValue() >=  Integer.parseInt(env.get("MAX_BRUTEFORCE_ATTEMPTS"))).
                         collect(Collectors.toList());
 
         StringBuilder builder = new StringBuilder("\033[36m");
