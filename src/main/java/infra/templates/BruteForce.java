@@ -22,13 +22,14 @@ public class BruteForce implements Itemplete{
                         stream().
                         filter(e -> BruteForce.IN(e.status())).
                         collect(Collectors.groupingBy(IEvent::srcIp, Collectors.counting())).
-                        entrySet().
+                         entrySet().
                         stream().
                         filter(e -> e.getValue() >=  Integer.parseInt(env.get("MAX_BRUTEFORCE_ATTEMPTS"))).
+                        //map(e-> System.out.println(e.getKey())).
                         collect(Collectors.toList());
 
         StringBuilder builder = new StringBuilder("\033[36m");
-        builder.append("\n   ========[ Brute Force Template ]==========\n");
+        builder.append("==========[  Brute Force Template  ]==========\n");
         builder.append("----------------------------------------------\n");
         if (suspIps.isEmpty()) {
             builder.append("No suspicious activity detected.");
