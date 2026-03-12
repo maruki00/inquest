@@ -20,6 +20,7 @@ import domain.contract.IRepository;
 import domain.contract.Itemplete;
 import domain.contract.ParserService;
 import domain.entity.Event;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class HttpdAccessLogServcie implements ParserService {
     private static final String LOCAL_IP = "127.0.0.1";
@@ -83,8 +84,8 @@ public class HttpdAccessLogServcie implements ParserService {
         return null;
     }
 
-    public void Analyse(Itemplete templete) {
-        System.out.println(templete.scan(HttpdAccessLogServcie.repository.datasource()));
+    public void Analyse(Itemplete templete, Dotenv env) {
+        System.out.println(templete.scan(HttpdAccessLogServcie.repository.datasource(), env));
     }
 
 }
