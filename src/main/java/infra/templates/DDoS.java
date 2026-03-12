@@ -3,17 +3,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import domain.contract.IEvent;
 import domain.contract.Itemplete;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class DDoS implements Itemplete {
-    private static final Integer MAX_ALLOWED_REQUESTS = 1000;
 
-    public String scan(List<IEvent> events) {
-
+    public String scan(List<IEvent> events, Dotenv env) {
         var suspIps = events.stream().
                                   collect(Collectors.groupingBy(IEvent::srcIp, Collectors.counting())).
                                   entrySet().
                                   stream().
-                                  filter(e -> e.getValue() > MAX_ALLOWED_REQUESTS).
+                                  filter(e -> e.getValue() > Integer.parseInt(env.get("MAX_DDOS_REQUESTS"))).
                                   collect(Collectors.toList());
 
         StringBuilder builder = new StringBuilder("\033[31m");
