@@ -69,12 +69,14 @@ public class Basic implements Itemplete{
                                             mostFrequentURI.get().getValue())
             );
         }
+
         if(mostFrequentRequestsInADay.isPresent()){
-            builder.append(String.format("Peak Traffic Day : %-15s\n", 
-                                                mostFrequentRequestsInADay.get().getKey()
-                                        )
+            builder.append(String.format("Peak Traffic Day : %-15s (%5d hits)\n", 
+                                            mostFrequentRequestsInADay.get().getKey(), 
+                                            mostFrequentRequestsInADay.get().getValue())
             );
         }
+        
         builder.append("\033[0m");
         return builder.toString();
     }
