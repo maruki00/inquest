@@ -8,13 +8,14 @@ import java.util.stream.Collectors;
 
 import domain.contract.IEvent;
 import domain.contract.Itemplete;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Injection implements Itemplete{
     /**
      * xss
      * file inclusion
      * sqli
-     * 
+     * ....
      */
 
     static Map<String,String> basicPayloads = Map.ofEntries(
@@ -40,12 +41,21 @@ public class Injection implements Itemplete{
         }
         return false;
     }
-    public String scan(List<IEvent> events) {
+    private static String getMatchedAttack(IEvent e){
+        for (Map.Entry<String, String> payload : basicPayloads.entrySet()) {
+        if (e.subject().contains(payload.getKey())) {
+            return  String.format("Potential Attack : %-15s | Type: %-10s | Payload: %-20s\n", e.srcIp(), payload.getValue(), payload.getKey());   //entry.getValue(); 
+        }
+    }
+        return "Clean";
+    }
+    public String scan(List<IEvent> events, Dotenv env) {
         var suspIps = events.stream().
                                  // collect(Collectors.groupingBy(IEvent::srcIp, Collectors.counting())).
                                  // entrySet().
                                 //  stream().
                                   filter(e -> Injection.Contains(e.subject())).
+                                  map(e -> Injection.getMatchedAttack(e)).
                                   collect(Collectors.toList());
 
         StringBuilder builder = new StringBuilder("\033[33m");
@@ -55,7 +65,7 @@ public class Injection implements Itemplete{
             builder.append("No suspicious activity detected.\n");
         }else{
             for (var x : suspIps){
-                builder.append(String.format("Potential Injecation : %-15s \n", x.srcIp()));
+                builder.append(x);
             }
         }
         builder.append("\033[0m");
